@@ -1,7 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { authorList, bookList, libraryList } from "./_db";
-
+ 
 const typeDefs = `#graphql
     type Book {
         id: ID!,
@@ -30,52 +29,52 @@ const typeDefs = `#graphql
     }
 `;
 
-// const authorList = [
-// 	{
-// 		id: "author1",
-// 		firstName: "Rayden",
-// 		lastName: "Li",
-// 		books: [],
-// 	},
-// 	{
-// 		id: "author2",
-// 		firstName: "Tim",
-// 		lastName: "Li",
-// 		books: [],
-// 	},
-// ];
+const authorList = [
+	{
+		id: "author1",
+		firstName: "Rayden",
+		lastName: "Li",
+		books: [],
+	},
+	{
+		id: "author2",
+		firstName: "Tim",
+		lastName: "Li",
+		books: [],
+	},
+];
 
-// const bookList = [
-// 	{
-// 		id: "book1",
-// 		title: "Testing book 1",
-// 		branch: "library1",
-// 		author: "author2",
-// 	},
-// 	{
-// 		id: "book2",
-// 		title: "Testing book 2",
-// 		branch: "library2",
-// 		author: "author1",
-// 	},
-//     {
-// 		id: "book2",
-// 		title: "Testing book 2",
-// 		branch: "library2",
-// 		author: "author1",
-// 	},
-// ];
+const bookList = [
+	{
+		id: "book1",
+		title: "Testing book 1",
+		branch: "library1",
+		author: "author2",
+	},
+	{
+		id: "book2",
+		title: "Testing book 2",
+		branch: "library2",
+		author: "author1",
+	},
+    {
+		id: "book2",
+		title: "Testing book 2",
+		branch: "library2",
+		author: "author1",
+	},
+];
 
-// const libraryList = [
-// 	{
-// 		id: "library1",
-// 		name: "Hong Kong",
-// 	},
-// 	{
-// 		id: "library2",
-// 		name: "Taiwan",
-// 	},
-// ];
+const libraryList = [
+	{
+		id: "library1",
+		name: "Hong Kong",
+	},
+	{
+		id: "library2",
+		name: "Taiwan",
+	},
+];
 
 const resolvers = {
 	Query: {
