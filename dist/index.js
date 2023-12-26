@@ -1,6 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { authorList, bookList, libraryList } from "./_db.js";
+import { connect } from "./db.js";
 const typeDefs = `#graphql
     type Book {
         id: ID!,
@@ -82,4 +83,5 @@ const server = new ApolloServer({
 const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
 });
+connect();
 console.log(`server ready at ${url}`);
