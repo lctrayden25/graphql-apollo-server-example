@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-const libraryModel = new mongoose.Schema({
+const librarySchema = new mongoose.Schema({
     name: String,
     address: String
 }, { versionKey: false })
 
-const Library = mongoose.model("Library", libraryModel);
-module.exports = Library;
+const Library = mongoose.model("Library", librarySchema);
+module.exports = { Library };

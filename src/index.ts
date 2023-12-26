@@ -2,6 +2,8 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { authorList, bookList, libraryList } from "./_db.js";
 import { connect } from "./db.js";
+import { Book } from "./models/book.model.js";
+
 
 const typeDefs = `#graphql
     type Book {
@@ -38,6 +40,7 @@ const typeDefs = `#graphql
 const resolvers = {
 	Query: {
 		bookList: (parent, arg, contextValue, info) => {
+			const x = Book
 			const { title } = arg ?? {};
 			return title
 				? bookList?.filter((book) => book?.title === title)
