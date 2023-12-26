@@ -6,4 +6,5 @@ const librarySchema = new mongoose.Schema({
 }, { versionKey: false })
 
 const Library = mongoose.model("Library", librarySchema);
-module.exports = { Library };
+export default Library;
+// module.exports = { Library };
