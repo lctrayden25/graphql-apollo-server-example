@@ -3,6 +3,8 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { authorList, bookList, libraryList } from "./_db.js";
 import { connect } from "./db.js";
 import Book from "./models/book.model.js";
+import Author from "./models/author.model.js";
+import Library from "./models/library.model.js";
 
 
 const typeDefs = `#graphql
@@ -33,14 +35,18 @@ const typeDefs = `#graphql
     }
 
 	type Mutation {
-		bookDelete(id: String): Book
+		bookDelete(id: String): Book,
+		bookCreate(title: String): Book
 	}
 `;
 
 const resolvers = {
 	Query: {
-		bookList: (parent, arg, contextValue, info) => {
+		bookList: async (parent, arg, contextValue, info) => {
 			const { title } = arg ?? {};
+			console.log(await Book.find());
+			console.log(await Author.find());
+			console.log(await Library.find());
 			return title
 				? bookList?.filter((book) => book?.title === title)
 				: bookList;
@@ -71,13 +77,13 @@ const resolvers = {
 		},
 	},
 	Mutation: {
-		async bookDelete(_, arg) {
-			const { id } = arg ?? {};
-			const deleteData = bookList?.find((book) => book?.id === id);
-			if (!deleteData) return {};
-			return deleteData;
-		},
-	},
+		bookCreate: async (_, arg) => {
+			const { title } = arg ?? {};
+				const x = await Book.create({ title }, { });
+				
+			console.log(x);
+		}
+	}
 };
 
 const server = new ApolloServer({

@@ -7,7 +7,7 @@ const dbPassword = encodeURIComponent(process.env.DB_PASSWORD as string);
 export const connect = async () => {
 	try {
 		await mongoose.connect(
-			`mongodb+srv://${dbUsername}:${dbPassword}@apollo-graphql-server.smzn65v.mongodb.net/`
+			`mongodb+srv://${dbUsername}:${dbPassword}@apollo-graphql-server.smzn65v.mongodb.net/bookDB`
 		);
 		console.log("db connected.");
 	} catch (error) {
