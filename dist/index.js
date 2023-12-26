@@ -1,5 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { authorList, bookList, libraryList } from "./_db.js";
 const typeDefs = `#graphql
     type Book {
         id: ID!,
@@ -26,55 +27,14 @@ const typeDefs = `#graphql
         authorList: [Author],
         libraryList: [Library]
     }
+
+	type Mutation {
+		bookDelete(id: String): Book
+	}
 `;
-const authorList = [
-    {
-        id: "author1",
-        firstName: "Rayden",
-        lastName: "Li",
-        books: [],
-    },
-    {
-        id: "author2",
-        firstName: "Tim",
-        lastName: "Li",
-        books: [],
-    },
-];
-const bookList = [
-    {
-        id: "book1",
-        title: "Testing book 1",
-        branch: "library1",
-        author: "author2",
-    },
-    {
-        id: "book2",
-        title: "Testing book 2",
-        branch: "library2",
-        author: "author1",
-    },
-    {
-        id: "book2",
-        title: "Testing book 2",
-        branch: "library2",
-        author: "author1",
-    },
-];
-const libraryList = [
-    {
-        id: "library1",
-        name: "Hong Kong",
-    },
-    {
-        id: "library2",
-        name: "Taiwan",
-    },
-];
 const resolvers = {
     Query: {
         bookList: (parent, arg, contextValue, info) => {
-            console.log(info);
             const { title } = arg ?? {};
             return title
                 ? bookList?.filter((book) => book?.title === title)
@@ -103,8 +63,17 @@ const resolvers = {
     Library: {
         async books(parent) {
             return bookList?.filter((book) => book?.branch?.includes(parent?.id));
-        }
-    }
+        },
+    },
+    Mutation: {
+        async bookDelete(_, arg) {
+            const { id } = arg ?? {};
+            const deleteData = bookList?.find((book) => book?.id === id);
+            if (!deleteData)
+                return {};
+            return deleteData;
+        },
+    },
 };
 const server = new ApolloServer({
     typeDefs,
